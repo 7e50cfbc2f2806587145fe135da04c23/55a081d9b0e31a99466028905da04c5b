@@ -1,0 +1,108 @@
+@import "variables"
+
+.btn
+	position: relative
+	display: flex
+	align-items: center
+	justify-content: center
+	white-space: nowrap
+	text-overflow: ellipsis
+	height: $input-height
+	line-height: $input-height
+	border-radius: radius()
+	outline: none
+	appearance: none
+	font-weight: bold
+	border: none
+	width: 100%
+	cursor: pointer
+	user-select: none
+	&:after
+		display: none
+		content: ''
+		position: absolute
+		left: 0
+		top: 0
+		width: 100%
+		height: 100%
+		border-radius: radius()
+
+@each $key, $value in $themes
+	.btn-#{$key}
+		background: $value
+		color: black-or-white($value)
+
+		&:hover
+			$color: darken($value, 10)
+			background: $color
+			color: black-or-white($color)
+
+		&:focus:after
+			display: block
+			box-shadow: ring($value)
+
+		&:active
+			$color: darken($value, 30)
+			background: $color
+			color: black-or-white($color)
+
+.btn-icon
+	display: flex
+	justify-content: center
+	align-items: center
+	border-radius: $input-height
+	cursor: pointer
+	font-size: fontsize(large)!important
+	object-fit: contain
+
+	&:hover
+		$color: darken($very-light-gray, 5)
+		background: $color
+		color: black-or-white($color)
+	&:active
+		$color: darken($very-light-gray, 10)
+		background: $color
+		color: black-or-white($color)
+
+.btn-disabled
+	pointer-events: none
+	background: $light-gray
+	color: $text-muted
+	tab-index: -1
+
+	&:focus:after
+		box-shadow: none
+
+
+.fab
+	position: relative
+	display: flex
+	justify-content: center
+	align-items: center
+	height: $input-height
+	background: $primary
+	color: black-or-white($primary)
+	z-index: 5
+	border-radius: 64px
+	outline: none
+	border: none
+	cursor: pointer
+	box-shadow: elevation(3)
+	padding-left: space(2)
+
+	&:after
+		display: none
+		content: ''
+		position: absolute
+		left: 0
+		top: 0
+		width: 100%
+		height: 100%
+		border-radius: 64px
+
+	.icon
+		display: flex
+		justify-content: center
+		align-items: center
+		height: $input-height
+		width: $input-height

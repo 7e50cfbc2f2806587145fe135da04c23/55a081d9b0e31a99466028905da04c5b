@@ -1,0 +1,92 @@
+@import "variables"
+
+.rounded
+	border-radius: radius()
+
+.v-spacer
+	position: relative
+	display: flex
+	justify-content: center
+	align-items: center
+
+	&:after
+		position: absolute
+		content: ''
+		width: 100%
+		height: 1px
+		background: $very-light-gray
+
+.w-100
+	width: 100% !important
+
+.h-100
+	height: 100% !important
+
+.ml-auto
+	margin-left: auto
+
+.mt-auto
+	margin-top: auto
+
+.mr-auto
+	margin-right: auto
+
+.mb-auto
+	margin-bottom: auto
+
+@each $key, $spacer in $spacers
+	.vs-#{$key}
+		flex: 0 0 auto
+		min-height: $spacer
+		width: 100%
+
+	.hs-#{$key}
+		flex: 0 0 auto
+		height: 100%
+		min-width: $spacer
+
+	.m-#{$key}
+		margin: $spacer
+
+	.mx-#{$key}
+		margin-left: $spacer
+		margin-right: $spacer
+
+	.my-#{$key}
+		margin-top: $spacer
+		margin-bottom: $spacer
+
+	.ml-#{$key}
+		margin-left: $spacer
+
+	.mt-#{$key}
+		margin-top: $spacer
+
+	.mr-#{$key}
+		margin-right: $spacer
+
+	.mb-#{$key}
+		margin-bottom: $spacer
+
+	.p-#{$key}
+		padding: $spacer
+
+	.px-#{$key}
+		padding-left: $spacer
+		padding-right: $spacer
+
+	.py-#{$key}
+		padding-top: $spacer
+		padding-bottom: $spacer
+
+	.pl-#{$key}
+		padding-left: $spacer
+
+	.pt-#{$key}
+		padding-top: $spacer
+
+	.pr-#{$key}
+		padding-right: $spacer
+
+	.pb-#{$key}
+		padding-bottom: $spacer

@@ -1,0 +1,45 @@
+@import "variables"
+
+*, *:after, *:before
+	box-sizing: border-box
+
+html, body
+	font-family: iranyekan, sans-serif
+	padding: 0
+	margin: 0
+	font-size: fontsize(normal)
+	background: none !important
+	width: 100vw
+	height: 100vh
+	overflow: hidden
+	direction: rtl
+	line-height: $line-height
+	font-weight: normal
+	color: $text-dark
+	user-select: none !important
+
+main
+	display: flex
+	flex-direction: column
+	width: 100vw
+	height: 100vh
+	overflow-x: hidden
+	overflow-y: auto
+	padding: 0
+	margin: 0
+	scroll-behavior: smooth
+	-webkit-overflow-scrolling: touch
+
+
+select, button, input
+	font-family: iranyekan, sans-serif
+	font-size: fontsize(normal)
+
+a
+	font-weight: bold
+	color: $primary
+	outline: none
+	text-decoration: none !important
+
+	&:hover
+		color: darken($primary, 20)

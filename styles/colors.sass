@@ -1,0 +1,20 @@
+@import "variables"
+
+@each $key, $value in $themes
+	.text-#{$key}
+		color: $value!important
+	.bg-#{$key}
+		background: $value!important
+	.color-#{$key}
+		$color: lighten($value, 20)
+		background: $color!important
+		color: black-or-white($color)!important
+
+@each $key, $value in $grays
+	.text-#{$key}
+		color: $value!important
+	.bg-#{$key}
+		background: $value!important
+	.bg-text-#{$key}
+		background: $value!important
+		color: black-or-white($value)!important

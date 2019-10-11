@@ -1,0 +1,115 @@
+$blue: #3340ff
+$red: #ff5a5a
+$green: #11d791
+$yellow: #ffb800
+$magneto: #8011ff
+
+$black: #000
+$dark-gray: #202020
+$gray: #6f7a7a
+$light-gray: #c7d2d3
+$very-light-gray: #f2f3f5
+$white: #fff
+
+$primary: $red
+$accent: $blue
+$secondary: $light-gray
+$disabled: $light-gray
+$danger: $red
+$warning: $yellow
+$success: $green
+$shadows: $black
+
+$text-dark: $dark-gray
+$text-light: $very-light-gray
+$text-muted: $gray
+
+$line-height: 1.5
+$input-height: 36px
+$spacer: 15px
+
+$spacers: (0:0px, 0.5: 4px, 1:8px, 1.5: 12px, 2:16px, 3:24px, 4:32px, 5:64px, 6:82px, 7:128px)
+$themes: (primary: $primary, accent: $accent, secondary: $secondary, danger: $red, warning: $yellow, success: $green, light: $very-light-gray)
+$grays: (black: $black, dark: $dark-gray, gray: $gray, light: $light-gray, very-light: $very-light-gray, muted: $text-muted, white: $white)
+$breakpoints: (0:(500px, 320px, 16px), 1:(800px, 620px, 16px), 2:(1400px, 1170px, 15px))
+$font-sizes: (extra-small:8px, small:10px, normal:12px, semi-medium:14px, medium:16px, semi-large:18px, large:20px, extra-large:22px, header:26px, heading: 32px)
+
+@function space($id)
+	@return map_get($spacers, $id)
+
+@function fraction($factor: 1)
+	@return $spacer * $factor
+
+
+@function ring($color)
+	@return 0 0 0 3px rgba($color, 0.2)
+
+@function fontsize($id)
+	@return map_get($font-sizes, $id)
+
+@function radius($level: 1)
+	@if $level == 1
+		@return 3px
+	@else if $level == 2
+		@return 5px
+	@return 0
+
+@function elevation($level)
+	@if $level == 1
+		@return 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+	@elseif $level == 2
+		@return 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+	@elseif $level == 3
+		@return 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+	@elseif $level == 4
+		@return 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
+	@elseif $level == 5
+		@return 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
+
+@function black-or-white($color, $dark: $text-dark, $light: $text-light)
+	$contrast-threshold: 150
+	$r: red($color)
+	$g: green($color)
+	$b: blue($color)
+
+	$yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000
+
+	@if ($yiq >= $contrast-threshold)
+		@return $dark
+	@else
+		@return $light
+
+
+@mixin device($index)
+	$lower: 0
+	@if ($index > 0)
+		$h: map_get($breakpoints, $index - 1)
+		$lower: nth($h, 1) + 1
+	$upper: nth(map_get($breakpoints, $index), 1)
+	@media screen and (min-width: $lower) and (max-width: $upper)
+		@content
+
+
+@mixin above($index)
+	$lower: 0
+	@if ($index > 0)
+		$lower: nth(map_get($breakpoints, $index - 1), 1) + 1
+	@media screen and (min-width: $lower)
+		@content
+
+
+@mixin below($index)
+	$upper: nth(map_get($breakpoints, $index), 1)
+	@media screen and (max-width: $upper)
+		@content
+
+
+@mixin container($factor: 1, $break: true)
+	margin: 0 auto
+	width: 100%
+	@each $key, $value in $breakpoints
+		+above($key)
+			@if $break
+				max-width: nth($value, 2)
+			padding-left: nth($value, 3) * 2 * $factor
+			padding-right: nth($value, 3) * 2 * $factor

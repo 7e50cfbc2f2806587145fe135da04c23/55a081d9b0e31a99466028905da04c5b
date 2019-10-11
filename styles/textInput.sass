@@ -1,0 +1,126 @@
+@import "variables"
+
+$color: darken($accent, 10)
+$danger: darken($danger, 10)
+$border: $gray
+$disabled: $light-gray
+$light: $very-light-gray
+$height: $input-height
+$text-dark: $text-dark
+$text-light: $gray
+
+.text-input-wrapper
+	position: relative
+	width: 100%
+
+	.text-input-error
+		width: 100%
+		font-size: 12px
+		color: $danger
+		padding-top: space(1)
+		padding-right: space(1)
+
+	.text-input
+		position: relative
+		display: flex
+		flex-direction: column
+		justify-content: center
+		background: $light
+		width: 100%
+		min-height: $height
+
+		.border
+			pointer-events: none
+			content: ''
+			position: absolute
+			left: 0
+			top: 0
+			width: 100%
+			height: 100%
+			border-bottom: $border 1px solid
+			transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out
+			z-index: 1
+
+		label
+			display: none
+			position: absolute
+			font-weight: normal
+			font-size: 14px
+			padding: space(1) space(2)
+			width: 100%
+			color: $text-light
+			pointer-events: none
+			transition: all
+
+		input
+			display: flex
+			justify-content: flex-start
+			align-items: center
+			width: 100%
+			background: transparent
+			font-family: inherit
+			resize: none
+			font-size: 14px
+			font-weight: 400
+			line-height: initial
+			color: $text-dark
+			border: none
+			background-clip: padding-box
+			outline: none
+			padding: space(1) space(2)
+			height: $height
+
+			&:focus + .border
+				border-color: $color !important
+
+		&.has-value
+			background:  rgba($color, 0.08)
+			label
+				display: flex
+				font-size: 9px
+				top: 3px
+				padding: 0 space(2)
+				color: $color
+			input
+				position: absolute
+				height: $input-height / 1.5
+				bottom: 0
+
+			.border
+				border-color: $color !important
+
+		&.has-error
+			background:  rgba($danger, 0.08)
+			label
+				color: $danger
+			.border
+				border-color: rgba($danger, 0.6) !important
+
+		&.is-disabled
+			pointer-events: none
+			background:  rgba($disabled, 0.08)
+			label
+				color: $disabled
+			input
+				color: $text-light
+			.border
+				border-color: rgba($disabled, 0.6) !important
+
+		&.is-numeric
+			label
+				display: flex
+			input
+				direction: ltr !important
+				text-align: right
+
+		.postfix
+			position: absolute
+			display: flex
+			justify-content: center
+			align-items: center
+			font-size: 12px
+			left: space(2)
+			z-index: 3
+			pointer-events: none
+			color: $text-light
+

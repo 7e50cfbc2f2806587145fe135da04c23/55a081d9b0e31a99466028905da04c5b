@@ -1,0 +1,77 @@
+@import "variables";
+.info {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+
+	& > .icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 32px;
+		height: 100%;
+		font-size: 16px;
+		flex: 0 0 auto;
+	}
+
+	& > .content {
+		flex: 1 1 auto;
+	}
+}
+
+.indicate {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: space(2);
+	font-size: 10px;
+
+
+	.button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 22px;
+		border-radius: radius();
+		outline: none;
+		font-weight: bold;
+		border: none;
+		cursor: pointer;
+		user-select: none;
+		width: auto;
+		padding: 0 space(2);
+		transition: background-color 0.2s ease-in-out;
+		font-size: 10px;
+	}
+
+	&.indicate-primary {
+		background: lighten($primary, 35);
+		color: $primary;
+		.button {
+			background: $primary;
+			color: darken($primary, 10);
+		}
+	}
+
+	&.indicate-error {
+		background: lighten($danger, 25);
+		color: $danger;
+		.button {
+			background: $danger;
+			color: darken($danger, 10);
+		}
+	}
+
+	&.indicate-success {
+		background: lighten($success, 35);
+		color: darken($success, 30);
+		.button {
+			background: $success;
+			color: darken($success, 30);
+		}
+	}
+
+}

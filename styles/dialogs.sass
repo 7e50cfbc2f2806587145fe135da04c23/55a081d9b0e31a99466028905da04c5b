@@ -1,0 +1,30 @@
+@import "variables"
+
+.dialog
+	position: fixed
+	display: flex
+	flex-direction: column
+	top: 0
+	left: 0
+	width: 100vw
+	height: 100vh
+	z-index: 3000
+	background: rgba($dark-gray, 0.8)
+	overflow-x: hidden
+	overflow-y: auto
+	-webkit-overflow-scrolling: touch
+	scroll-behavior: smooth
+	padding: space(2)
+
+	& > .wrapper
+		position: relative
+		display: flex
+		flex-direction: column
+		background: $white
+		border-radius: radius()
+		box-shadow: elevation(2)
+		margin: 0 auto
+
+.dialog-centered
+	& > .wrapper
+		margin: auto !important
