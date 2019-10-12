@@ -27,7 +27,7 @@ export class Home extends Component {
 		const {form, searchPopup} = this.state;
 		return <Fragment>
 			<div className="home-banner">
-				<img className="background" src={require('./images/banner.png')} alt=""/>
+				<img className="background" src={require('./images/banner.jpg')} alt=""/>
 				<div className="home-navbar">
 					<div className="container-slim wrapper">
 						<div className="links right">
