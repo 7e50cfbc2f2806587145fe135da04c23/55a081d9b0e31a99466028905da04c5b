@@ -60,13 +60,13 @@ export class LoginOtp extends Component {
 				/>
 				<div className="vs-2"/>
 
-				<button className="button button-primary" onClick={this.submit}>
+				<button className="btn btn-primary" onClick={this.submit}>
 					ارسال کد
 				</button>
 				<div className="vs-2"/>
 				<div>اگر قبلا برای حساب خود رمز عبور را وارد کرده‌اید، می‌توانید با شماره موبایل و رمز عبور نیز وارد شوید.</div>
 				<div className="vs-4 v-spacer"/>
-				<div className="centered-container">
+				<div className="flex center">
 					<Link to={Routes.loginPassword()}>ورود با رمز عبور</Link>
 				</div>
 

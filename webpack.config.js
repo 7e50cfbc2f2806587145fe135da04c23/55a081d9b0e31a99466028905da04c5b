@@ -7,7 +7,7 @@ const instance = new Webpack({
 	entries: {
 		app: [
 			'./src/client.ts',
-			'./styles/app.scss'
+			'./src/styles/app.scss'
 		]
 	},
 	enableGzip: true,

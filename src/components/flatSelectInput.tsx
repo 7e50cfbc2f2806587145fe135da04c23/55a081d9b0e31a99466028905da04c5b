@@ -15,15 +15,15 @@ export const FlatSelectInput = (props: FlatSelectInputProps) => {
 	const hasValue = !(!values[name] && values[name] !== 0);
 	const hasError = (errors && errors[name]);
 	const isDisabled = (typeof disabled == 'boolean' && disabled) || (disabled && disabled[name]);
-	return <div className="form-control-wrapper">
-		<div className={`flat-select ${isDisabled ? 'disabled' : ''} ${hasError ? 'has-error' : ''} ${hasValue ? 'has-value' : ''}`}>
-			{options && Object.keys(options).map(key => <div
+	return <div className="flat-select-wrapper">
+		<div className={`flat-select ${isDisabled ? 'is-disabled' : ''} ${hasError ? 'has-error' : ''} ${hasValue ? 'has-value' : ''}`}>
+			{options && Object.keys(options).map(key => <button
 				key={key}
 				onClick={() => onChange(name, key)}
-				className={`option ${key == values[name] ? 'selected' : ''}`}>
+				className={`option ${key == values[name] ? 'is-active' : ''}`}>
 				{options[key]}
-			</div>)}
+			</button>)}
 		</div>
-		{hasError && <div className="form-control-error">{errors[name]}</div>}
+		{hasError && <div className="flat-select-error">{errors[name]}</div>}
 	</div>
 };

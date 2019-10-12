@@ -5,7 +5,7 @@ export interface SelectInputProps {
 	placeholder: string;
 	autoFocus?: boolean;
 	disabled?: any;
-	options?: { [key: string]: string }
+	options: { [key: string]: string }
 	values: any;
 	errors?: any;
 	unselected?: string;
@@ -23,8 +23,8 @@ export const SelectInput = (props: SelectInputProps) => {
 	const hasValue = !(!values[name] && values[name] !== 0);
 	const hasError = (errors && errors[name]);
 	const isDisabled = (typeof disabled == 'boolean' && disabled) || (disabled && disabled[name]);
-	return <div className="form-control-wrapper">
-		<div className={`form-control select-input ${isDisabled ? 'disabled' : ''} ${hasError ? 'has-error' : ''} ${hasValue ? 'has-value' : ''}`}>
+	return <div className="select-input-wrapper">
+		<div className={`select-input ${isDisabled ? 'disabled' : ''} ${hasError ? 'has-error' : ''} ${hasValue ? 'has-value' : ''}`}>
 			<label>{placeholder}</label>
 			<select
 				ref={input}
@@ -38,6 +38,6 @@ export const SelectInput = (props: SelectInputProps) => {
 			<div className="border"/>
 			<i className="icon">keyboard_arrow_down</i>
 		</div>
-		{hasError && <div className="form-control-error">{errors[name]}</div>}
+		{hasError && <div className="select-input-error">{errors[name]}</div>}
 	</div>
 };

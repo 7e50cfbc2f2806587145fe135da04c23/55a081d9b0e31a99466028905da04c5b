@@ -2,10 +2,8 @@ import React, {Component, Fragment} from 'react';
 import {TextInput} from "components/textInput";
 import {Link} from "react-router-dom";
 import {Routes} from "lib/routes";
-import {PasswordInput} from "components/passwordInput";
 import {binder, consumer, inject} from "coreact";
 import {AuthService} from "services/authService";
-import {Spinner} from "components/spinner";
 import {attach, changeHelper, initialize, RequestWrapper} from "lib/stateFullFetch";
 
 @consumer
@@ -57,12 +55,13 @@ export class LoginPassword extends Component {
 				number
 			/>
 			<div className="vs-2"/>
-			<PasswordInput
+			<TextInput
 				name="password"
 				placeholder="رمز عبور خود را وارد کنید"
 				errors={messages}
 				values={form}
 				onChange={this.onChange}
+				password
 			/>
 			<div className="vs-2"/>
 			<button className="button button-primary" onClick={this.submit}>

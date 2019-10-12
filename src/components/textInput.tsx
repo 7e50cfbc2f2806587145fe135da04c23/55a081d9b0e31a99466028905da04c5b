@@ -10,6 +10,7 @@ export interface TextInputProps {
 	values: any;
 	maxLength?: number;
 	number?: boolean;
+	password?: boolean;
 	onChange: (name: string, value: string) => any;
 	postfix?: string;
 }
@@ -24,7 +25,7 @@ function onlyNumbers(str: string) {
 	return out;
 }
 export const TextInput = (props: TextInputProps) => {
-	const {name, placeholder, disabled, errors, maxLength, autoFocus, values, onChange, number, postfix} = props;
+	const {name, placeholder, disabled, errors, maxLength, autoFocus, password, values, onChange, number, postfix} = props;
 	const input = useRef<HTMLInputElement>();
 	useEffect(() => {
 		if (autoFocus)
@@ -40,7 +41,7 @@ export const TextInput = (props: TextInputProps) => {
 			<input
 				ref={input}
 				name={name}
-				type="text"
+				type={password ? 'password' : ''}
 				dir={number ? 'ltr': 'rtl'}
 				style={{textAlign: number ? 'end' : 'start'}}
 				placeholder={placeholder}

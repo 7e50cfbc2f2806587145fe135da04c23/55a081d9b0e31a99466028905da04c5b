@@ -9,6 +9,7 @@ export interface NumberInputProps {
 	values: any;
 	maxLength?: number;
 	money?: boolean;
+	disabled?: any;
 	autoFocus?: boolean;
 	onChange: (name: string, value: number) => any;
 }
@@ -58,7 +59,7 @@ export function makeMoney(v: any) {
 }
 
 export const NumberInput = (props: NumberInputProps) => {
-	const {name, placeholder, errors, postfix, maxLength, values, money, autoFocus, onChange} = props;
+	const {name, placeholder, errors, postfix, maxLength, disabled, values, money, autoFocus, onChange} = props;
 	const input = useRef<HTMLInputElement>();
 	useEffect(() => {
 		if (autoFocus)
@@ -67,10 +68,11 @@ export const NumberInput = (props: NumberInputProps) => {
 	const val = !!values[name] ? values[name].toString() : '0';
 	const hasValue = !!values[name];
 	const hasError = (errors && errors[name]);
-	return <div className="form-control-wrapper">
-		<div className={`form-control ${hasError ? 'has-error' : ''} ${hasValue ? 'has-value' : ''} number`}>
+	const isDisabled = (typeof disabled == 'boolean' && disabled) || (disabled && disabled[name]);
+	return <div className="number-input-wrapper">
+		<div className={`number-input ${isDisabled ? 'is-disabled' : ''} ${hasError ? 'has-error' : ''} ${hasValue ? 'has-value' : ''}`}>
 			<label>{placeholder}</label>
-			{postfix && <div className="input-postfix">{postfix}</div>}
+			{postfix && <div className="postfix">{postfix}</div>}
 			<input
 				name={name}
 				ref={input}
@@ -91,6 +93,6 @@ export const NumberInput = (props: NumberInputProps) => {
 			/>
 			<div className="border"/>
 		</div>
-		{hasError && <div className="form-control-error">{errors[name]}</div>}
+		{hasError && <div className="number-input-error">{errors[name]}</div>}
 	</div>
 };

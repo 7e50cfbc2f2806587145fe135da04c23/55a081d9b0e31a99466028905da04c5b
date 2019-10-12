@@ -13,18 +13,17 @@ export interface TabItemProps {
 	badge?: any;
 }
 
-
 export const Tab = (props: TabProps) => {
 	const {value, onChange, className} = props;
 	const items = Array.isArray(props.children) ? props.children : [props.children];
-	return <div className={`hm-tab ${className || ''}`}>
-		{items.map((tab, i) => <div key={i} className={`hm-tab--item ${value === i ? 'active' : ''}`} onClick={() => onChange(i)}>
-			{tab.props.icon && <div className="hm-tab--icon">
+	return <div className={`tab ${className || ''}`}>
+		{items.map((tab, i) => <div key={i} className={`tab ${value === i ? 'is-active' : ''}`} onClick={() => onChange(i)}>
+			{tab.props.icon && <div className="icon">
 				{tab.props.icon}
             </div>}
 			<label>
 				{tab.props.label}
-				{!!tab.props.badge && <div className="tab-badge">{tab.props.badge}</div>}
+				{!!tab.props.badge && <div className="badge">{tab.props.badge}</div>}
 			</label>
 		</div>)}
 	</div>;
