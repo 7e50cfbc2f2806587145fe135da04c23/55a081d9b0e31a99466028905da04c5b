@@ -6,29 +6,34 @@ import {Routes} from "lib/routes";
 import {SimpleInput} from "components/simpleInput";
 import {changeHelper, initialize} from "lib/stateFullFetch";
 import {Outbind} from "outbind";
+import {LoginOtp} from "../auth/loginOtp";
+import {Tab, TabItem} from "components/tab";
+import {ScrollListener} from "components/scrollListener";
 
 @consumer
 export class Home extends Component {
 	@inject routing = binder.bind(this)(Routing);
 
 	state = initialize({
+		authTab: 0,
 		form: {
 			search: '',
 		},
 		searchPopup: false,
+		offset: 0,
 	});
 
 	onChange = changeHelper.call(this, () => ({}));
 
 	show = () => this.setState({searchPopup: true});
 	hide = () => this.setState({searchPopup: false});
+	changeTab = (tab: any) => this.setState({authTab: tab});
 
 	render() {
-		const {form, searchPopup} = this.state;
+		const {form, searchPopup, authTab} = this.state;
 		return <Fragment>
-			<div className="home-banner">
-				<img className="background" src={require('./images/banner.jpg')} alt=""/>
-				<div className="home-navbar">
+			<ScrollListener>
+				{(offset) => <div className={`home-navbar ${offset > 100 ? 'is-detached' : ''}`}>
 					<div className="container-slim wrapper">
 						<div className="links right">
 							<i className="icon mobile">menu</i>
@@ -45,8 +50,10 @@ export class Home extends Component {
 							<i className="icon outlined mobile">account_circle</i>
 						</div>
 					</div>
-				</div>
-
+				</div>}
+			</ScrollListener>
+			<div className="home-banner">
+				<img className="background" src={require('./images/banner.jpg')} alt=""/>
 				<div className="container-slim">
 					<div className="home-slogan">رتبه و محل قبولی در آزمون کارشناسی ارشد</div>
 					<div className={`home-lookup ${searchPopup ? 'show-backdrop' : ''}`}>
@@ -82,6 +89,11 @@ export class Home extends Component {
 											<span className="title">هوش مصنوعی</span>
 											<span className="postfix">مهندسی کامپیوتر</span>
 										</div>
+										<div className="item">
+											<i className="icon">school</i>
+											<span className="title">میکرونانوالکتریک</span>
+											<span className="postfix">مهندسی برق</span>
+										</div>
 									</div>
 								</div>
 							</Outbind>}
@@ -92,8 +104,6 @@ export class Home extends Component {
 						</div>
 					</div>
 				</div>
-
-
 				<div className={`home-slider ${searchPopup ? 'show-backdrop' : ''}`}>
 					<div className="wrapper">
 						<div className="item">
@@ -116,8 +126,29 @@ export class Home extends Component {
 						</div>
 					</div>
 				</div>
-
 			</div>
+			<div className="vs-5"/>
+			<div className="flex center column solid">
+				<div className="text-semi-large">سامانه دانشجویان</div>
+				<div className="text-semi-large text-danger">ثبت نام کنید</div>
+			</div>
+			<div className="vs-3"/>
+			<div className="container-slim">
+				<div className="row">
+					<div className="col-4">
+						<Tab value={authTab} onChange={this.changeTab}>
+							<TabItem label="ورود"/>
+							<TabItem label="ثبت نام"/>
+						</Tab>
+						<LoginOtp/>
+					</div>
+					<div className="hs-6 h-spacer visible-desktop"/>
+					<div className="col-8 flex-center visible-desktop">
+						<img src={require('./images/try.svg')} alt=""/>
+					</div>
+				</div>
+			</div>
+			<div className="vs-6"/>
 		</Fragment>
 	}
 }

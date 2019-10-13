@@ -17,7 +17,7 @@ export const Tab = (props: TabProps) => {
 	const {value, onChange, className} = props;
 	const items = Array.isArray(props.children) ? props.children : [props.children];
 	return <div className={`tab ${className || ''}`}>
-		{items.map((tab, i) => <div key={i} className={`tab ${value === i ? 'is-active' : ''}`} onClick={() => onChange(i)}>
+		{items.map((tab, i) => <div key={i} className={`item ${value === i ? 'is-active' : ''}`} onClick={() => onChange(i)}>
 			{tab.props.icon && <div className="icon">
 				{tab.props.icon}
             </div>}

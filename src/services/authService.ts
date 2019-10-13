@@ -1,7 +1,7 @@
-import {observable, persist, RequestContext, save, service, ServiceEvents} from "coreact";
-import {request, requestMiddleware} from "netlayer";
+import {binder, inject, observable, persist, RequestContext, save, service, ServiceEvents} from "coreact";
 import {optional} from "lib/optional";
 import cookie from "js-cookie";
+import {Net} from "services/net";
 
 
 function parseClientName(useragent: any) {
@@ -19,6 +19,8 @@ const gateway = 'ApNative';
 
 @service
 export class AuthService implements ServiceEvents {
+	@inject net = binder.bind(this)(Net);
+
 	@save clientName: any = '';
 	@observable @save token: string = '';
 	@save mobileNumber: string = '';
@@ -39,7 +41,7 @@ export class AuthService implements ServiceEvents {
 		const asanToken = optional(() => context.body.startupData.token, '');
 		if (asanToken) {
 			try {
-				const user = (await request<{
+				const user = (await this.net.request<{
 					id: number;
 					fullName: string;
 					mobileNumber: string;
@@ -82,7 +84,7 @@ export class AuthService implements ServiceEvents {
 
 	async find(mobile: number) {
 		try {
-			const user = await request<{
+			const user = await this.net.request<{
 				name: string;
 			}>({
 				url: '/identity/find/' + mobile,
@@ -95,7 +97,7 @@ export class AuthService implements ServiceEvents {
 	}
 
 	send = async () => {
-		return (await request<{ resendAt: number }>({
+		return (await this.net.request<{ resendAt: number }>({
 			url: `/identity/otp/${this.mobile}/send`,
 			headers: {
 				'Client-Name': this.clientName,
@@ -107,7 +109,7 @@ export class AuthService implements ServiceEvents {
 
 	login = async (password: string, type: 'code' | 'password') => {
 		try {
-			const data = await request<{ id: number, fullName: string, token: string, mobileNumber: string }>({
+			const data = await this.net.request<{ id: number, fullName: string, token: string, mobileNumber: string }>({
 				url: `/identity/otp`,
 				method: 'POST',
 				headers: {
@@ -133,7 +135,7 @@ export class AuthService implements ServiceEvents {
 
 	authorize = async (token: string) => {
 		try {
-			const res = await request<{ id: number, fullName: string, mobileNumber: string }>({
+			const res = await this.net.request<{ id: number, fullName: string, mobileNumber: string }>({
 				url: `/identity/current`,
 				headers: {
 					'Client-Name': this.clientName,
@@ -149,7 +151,7 @@ export class AuthService implements ServiceEvents {
 	};
 	registerMiddleware = () => {
 		if (this.token) {
-			requestMiddleware('auth', (request) => ({
+			this.net.requestMiddleware('auth', (request) => ({
 				...request,
 				headers: {
 					'Client-name': this.clientName,
@@ -166,7 +168,7 @@ export class AuthService implements ServiceEvents {
 		this.fullName = '';
 		this.id = 0;
 		cookie.remove('kind');
-		requestMiddleware('auth', null);
+		this.net.requestMiddleware('auth', null);
 		this.token = '';
 	}
 
